@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 
 // Local
-import MenuImage from "../assets/menu/menu-img.jpeg";
+import MenuImage from "../assets/menu/test.jpg";
 
 const NavBar = () => {
   return (
