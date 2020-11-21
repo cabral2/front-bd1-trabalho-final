@@ -12,17 +12,7 @@ const App = (props) => {
     const changePage = (page) =>
         currentPage !== page ? setCurrentPage(page) : null;
 
-    const pages = [
-        "home",
-        "funcionarios",
-        "aviao",
-        "passageiro",
-        "viagem",
-        "mama",
-        "lucca",
-        "salve",
-        "salve2",
-    ];
+    const pages = ["home", "funcionarios", "aviao", "passageiro", "viagem"];
 
     return (
         <>

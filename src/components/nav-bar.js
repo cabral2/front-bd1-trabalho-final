@@ -13,10 +13,10 @@ import { Divider } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     text: {
         width: "62%",
-        color: "pink",
+        color: "#dbdbdb",
     },
     buttonText: {
-        color: "#bdbdbd",
+        color: "#c4c4c4",
     },
 }));
 
