@@ -7,12 +7,29 @@ import AppBody from "./app-body";
 // Material
 
 const App = (props) => {
-  return (
-    <>
-      <NavBar />
-      <AppBody />
-    </>
-  );
+    const [currentPage, setCurrentPage] = useState("home");
+
+    const changePage = (page) =>
+        currentPage !== page ? setCurrentPage(page) : null;
+
+    const pages = [
+        "home",
+        "funcionarios",
+        "aviao",
+        "passageiro",
+        "viagem",
+        "mama",
+        "lucca",
+        "salve",
+        "salve2",
+    ];
+
+    return (
+        <>
+            <NavBar changePage={changePage} pages={pages} />
+            <AppBody currentPage={currentPage} />
+        </>
+    );
 };
 
 export default App;

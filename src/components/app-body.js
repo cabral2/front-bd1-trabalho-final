@@ -1,50 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 
 // Local
 
 // Material
 import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import Form from "./form";
+import { Typography } from "@material-ui/core";
 
-const AppBody = (props) => {
-  return (
-    <>
-      <Paper>
-        <Typography variant="h4">Home</Typography>
-        {/* Filter fields */}
-        <Grid container spacing={1}>
-          <Grid item xs={2}>
-            <TextField
-              fullWidth
-              size="small"
-              value="Hello World"
-              variant="outlined"
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              fullWidth
-              size="small"
-              value="Hello World"
-              variant="outlined"
-              onChange={() => {}}
-            />
-          </Grid>
+const funcionario = ["CPF", "Nome", "Cargo", "Data", "Horas de Voo"];
+const aviao = [
+    "Modelo",
+    "Data Fabricação",
+    "Data Última Manutenção",
+    "Capacidade",
+];
 
-          {/* Filter buttons */}
-          <Grid item xs={1}>
-            <Button variant="contained" color="primary">
-              Buscar
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-    </>
-  );
-};
+const AppBody = (props) => (
+    <Paper elevation={10}>
+        {console.log(props.currentPage)}
+        {props.currentPage === "home" && (
+            <Typography>Seja bem vindo Edson, o Professor.</Typography>
+        )}
+        {props.currentPage === "funcionarios" && <Form campos={funcionario} />}
+        {props.currentPage === "aviao" && <Form campos={aviao} />}
+    </Paper>
+);
 
 export default AppBody;
