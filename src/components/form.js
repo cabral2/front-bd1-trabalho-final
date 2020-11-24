@@ -5,9 +5,15 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 const Form = (props) => {
+    const { campos } = props;
+
+    const onSubmit = (data) => {
+        console.log(data);
+    };
+
     return (
         <Grid container spacing={1}>
-            {props.campos.map((item) => (
+            {campos.map((item) => (
                 <Grid key={item} item xs={2}>
                     <TextField
                         fullWidth
@@ -21,7 +27,7 @@ const Form = (props) => {
 
             <Grid item xs={1}>
                 <Button
-                    onClick={() => console.log("dispara o role pro backend")}
+                    onClick={() => onSubmit("salve")}
                     variant="contained"
                     color="primary"
                 >
