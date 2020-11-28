@@ -16,6 +16,7 @@ export const funcionario = [
     { name: "Data de Contratação", prop: "dataContratacao" },
     { name: "Horas de Voo", prop: "hrVoo" },
 ];
+
 export const aviao = [
     { name: "Modelo", prop: "modelo" },
     { name: "Data de Fabricação", prop: "dataFabricacao" },

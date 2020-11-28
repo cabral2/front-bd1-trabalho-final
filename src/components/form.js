@@ -5,8 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import { post } from "../api";
+
 const Form = (props) => {
-    const { title, campos } = props;
+    const { title, campos, isUpdate } = props;
 
     const onSubmit = (data) => {
         console.log(data);
@@ -29,30 +31,36 @@ const Form = (props) => {
             <Typography gutterBottom variant="h4">
                 Adicionar um {title}
             </Typography>
-            <form onSubmit={() => {}}>
-                {campos.map((item) => (
-                    <Grid
-                        style={{
-                            marginBottom: "10px",
-                        }}
-                        key={item.name}
-                        item
-                        xs={12}
-                    >
-                        <TextField
-                            fullWidth
-                            size="small"
-                            placeholder={item.name}
-                            variant="outlined"
-                            onChange={() => {}}
-                        />
-                    </Grid>
-                ))}
-            </form>
+            {campos.map((item) => (
+                <Grid
+                    style={{
+                        marginBottom: "10px",
+                    }}
+                    key={item.name}
+                    item
+                    xs={12}
+                >
+                    <TextField
+                        fullWidth
+                        size="small"
+                        placeholder={item.name}
+                        variant="outlined"
+                        onChange={() => {}}
+                    />
+                </Grid>
+            ))}
 
             <Grid item xs={12}>
                 <Button
-                    onClick={() => onSubmit("salve")}
+                    onClick={() =>
+                        post("funcionario", {
+                            cpf: "04400455335",
+                            nome: "Lucca Miranda",
+                            cargo: "piloto",
+                            dataContratacao: "06/03/1999",
+                            hrVoo: 3000,
+                        })
+                    }
                     variant="contained"
                     color="primary"
                 >

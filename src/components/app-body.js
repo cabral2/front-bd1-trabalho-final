@@ -73,7 +73,11 @@ const AppBody = (props) => {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
             >
-                <Form title={currentPage} campos={funcionario} />
+                <Form
+                    title={currentPage}
+                    campos={funcionario}
+                    isUpdate={false}
+                />
             </Modal>
         </Paper>
     );
