@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const getAllFuncionarios = async function () {
-    axios
+    return axios
         .get(`http://179.179.222.111:150/TrabBD/api/funcionario`)
         .then((res) => {
-            console.log(res);
+            return res ? res.data : null;
         });
 };
 

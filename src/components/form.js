@@ -8,11 +8,11 @@ const Form = (props) => {
     return (
         <Grid container spacing={1}>
             {props.campos.map((item) => (
-                <Grid key={item} item xs={2}>
+                <Grid key={item.name} item xs={2}>
                     <TextField
                         fullWidth
                         size="small"
-                        placeholder={item}
+                        placeholder={item.name}
                         variant="outlined"
                         onChange={() => {}}
                     />
