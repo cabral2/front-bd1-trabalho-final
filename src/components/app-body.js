@@ -22,13 +22,15 @@ const AppBody = (props) => {
             </Typography>
 
             {/* Depends On Page */}
-            {currentPage === "home" && <Typography>Seja bem vindo</Typography>}
+            {currentPage === pages.HOME && (
+                <Typography>Seja bem vindo</Typography>
+            )}
 
-            {currentPage === "funcionario" && (
+            {currentPage === pages.FUNCIONARIO && (
                 <Table campos={funcionario} page={currentPage} />
             )}
 
-            {currentPage === "aviao" && <Table campos={aviao} />}
+            {currentPage === pages.AVIAO && <Table campos={aviao} />}
             {/* Depends On Page */}
 
             <button type="button" onClick={() => setOpen(true)}>

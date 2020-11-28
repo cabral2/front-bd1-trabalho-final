@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import { getAllFuncionarios } from "../api";
+import { get } from "../api";
 
 const Table = (props) => {
     const { campos, page } = props;
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
-        page === "funcionario" &&
-            getAllFuncionarios().then((data) => {
-                if (data) {
-                    const parsedData = data.map((x) => {
-                        return { ...x, id: x.cpf };
-                    });
-
-                    setTableData(parsedData);
-                }
-            });
+        get(page).then((data) => {
+            if (data) {
+                const parsedData = data.map((x) => {
+                    return { ...x, id: x.cpf };
+                });
+                setTableData(parsedData);
+            }
+        });
     }, []);
 
     const columns = campos
