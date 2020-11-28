@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid, isArray } from "@material-ui/data-grid";
 import { get } from "../api";
 
 const Table = (props) => {
@@ -11,7 +11,7 @@ const Table = (props) => {
 
     useEffect(() => {
         get(page).then((data) => {
-            if (data) {
+            if (data && isArray(data)) {
                 const parsedData = data.map((x) => {
                     if (page === "funcionario" || page === "passageiro")
                         return { ...x, id: x.cpf };
