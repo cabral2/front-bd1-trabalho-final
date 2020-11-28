@@ -1,7 +1,7 @@
 export const pages = {
     HOME: "home",
     AVIAO: "aviao",
-    FUNCIONARIOS: "funcionarios",
+    FUNCIONARIO: "funcionario",
     PASSAGEIRO: "passageiro",
     VIAGEM: "viagem",
 };

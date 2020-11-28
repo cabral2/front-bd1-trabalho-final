@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 // Local
 import { pages } from "./lib";
-import { funcionario, aviao } from "./lib";
+import { funcionario } from "./lib";
 // Material
 import Paper from "@material-ui/core/Paper";
+import Modal from "@material-ui/core/Modal";
+import Typography from "@material-ui/core/Typography";
+
 import Form from "./form";
-import { Typography } from "@material-ui/core";
 
 const AppBody = (props) => {
     const { currentPage } = props;
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         axios
@@ -19,10 +22,10 @@ const AppBody = (props) => {
             });
 
         /* axios
-            .get("https://api.github.com/users/daviemediato")
+            .get("https://api.github.com/users/cabral2")
             .then(function (response) {
                 console.log(response.data);
-                setPhotoURL(response.data.avatar_url); // ex.: { user: 'Your User'}
+               
                 console.log(response.status); // ex.: 200
             }); */
     });
@@ -35,10 +38,17 @@ const AppBody = (props) => {
             {props.currentPage === pages.HOME && (
                 <Typography>Seja bem vindo</Typography>
             )}
-            {props.currentPage === pages.FUNCIONARIOS && (
-                <Form campos={funcionario} />
-            )}
-            {props.currentPage === pages.AVIAO && <Form campos={aviao} />}
+            <button type="button" onClick={() => setOpen(true)}>
+                Adicionar um {currentPage}
+            </button>
+            <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                <Form title={currentPage} campos={funcionario} />
+            </Modal>
         </Paper>
     );
 };
