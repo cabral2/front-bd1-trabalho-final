@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 // Local
 import { pages } from "./lib";
-import { funcionario, aviao } from "./lib";
+import {
+    funcionario,
+    aviao,
+    passageiro,
+    localizacao,
+    passagem,
+    tripulacao,
+    viagem,
+} from "./lib";
 // Material
 import Paper from "@material-ui/core/Paper";
 import Modal from "@material-ui/core/Modal";
@@ -30,7 +38,29 @@ const AppBody = (props) => {
                 <Table campos={funcionario} page={currentPage} />
             )}
 
-            {currentPage === pages.AVIAO && <Table campos={aviao} />}
+            {currentPage === pages.AVIAO && (
+                <Table campos={aviao} page={currentPage} />
+            )}
+
+            {currentPage === pages.PASSAGEIRO && (
+                <Table campos={passageiro} page={currentPage} />
+            )}
+
+            {currentPage === pages.VIAGEM && (
+                <Table campos={viagem} page={currentPage} />
+            )}
+
+            {currentPage === pages.LOCALIZACAO && (
+                <Table campos={localizacao} page={currentPage} />
+            )}
+
+            {currentPage === pages.PASSAGEM && (
+                <Table campos={passagem} page={currentPage} />
+            )}
+
+            {currentPage === pages.TRIPULACAO && (
+                <Table campos={tripulacao} page={currentPage} />
+            )}
             {/* Depends On Page */}
 
             <button type="button" onClick={() => setOpen(true)}>

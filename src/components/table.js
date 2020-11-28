@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import { DataGrid } from "@material-ui/data-grid";
 import { get } from "../api";
 
@@ -10,7 +13,10 @@ const Table = (props) => {
         get(page).then((data) => {
             if (data) {
                 const parsedData = data.map((x) => {
-                    return { ...x, id: x.cpf };
+                    if (page === "funcionario" || page === "passageiro")
+                        return { ...x, id: x.cpf };
+
+                    return { ...x };
                 });
                 setTableData(parsedData);
             }
@@ -27,16 +33,47 @@ const Table = (props) => {
           })
         : null;
 
+    columns.push({
+        field: "edit",
+        headerName: "Editar",
+        flex: 1,
+        renderCell: (params) => (
+            <IconButton
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={console.log(params.data)}
+            >
+                <EditIcon />
+            </IconButton>
+        ),
+    });
+
+    columns.push({
+        field: "remove",
+        headerName: "Remover",
+        flex: 1,
+        renderCell: () => (
+            <IconButton variant="contained" color="primary" size="small">
+                <DeleteIcon />
+            </IconButton>
+        ),
+    });
+
     return (
         <div
             style={{
-                height: "80%",
                 width: "100%",
                 marginTop: "1vh",
                 display: "flex",
             }}
         >
-            <DataGrid rows={tableData} columns={columns} pageSize={5} />
+            <DataGrid
+                autoHeight
+                rows={tableData}
+                columns={columns}
+                pageSize={5}
+            />
         </div>
     );
 };
