@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { DataGrid } from "@material-ui/data-grid";
-import { get } from "../api";
+import { DataGrid, isArray } from "@material-ui/data-grid";
+import { get, remove } from "../api";
+import { pages } from "./lib";
 
 const Table = (props) => {
-    const { campos, page } = props;
+    const { page, campos, auxUpdateTable, handleEditClick } = props;
     const [tableData, setTableData] = useState([]);
 
-    useEffect(() => {
+    const sendGet = () => {
+        setTableData([]);
         get(page).then((data) => {
-            if (data) {
+            if (data && isArray(data)) {
                 const parsedData = data.map((x) => {
-                    if (page === "funcionario" || page === "passageiro")
+                    if (page === pages.FUNCIONARIO || page === pages.PASSAGEIRO)
                         return { ...x, id: x.cpf };
 
                     return { ...x };
@@ -21,7 +23,15 @@ const Table = (props) => {
                 setTableData(parsedData);
             }
         });
-    }, []);
+    };
+
+    useEffect(() => {
+        sendGet();
+    }, [campos, auxUpdateTable, page]);
+
+    const handleRemove = function (page, id) {
+        remove(page, id).then(() => sendGet());
+    };
 
     const columns = campos
         ? campos.map((campo) => {
@@ -42,7 +52,7 @@ const Table = (props) => {
                 variant="contained"
                 color="primary"
                 size="small"
-                onClick={console.log(params.data)}
+                onClick={() => handleEditClick(params.data)}
             >
                 <EditIcon />
             </IconButton>
@@ -53,8 +63,13 @@ const Table = (props) => {
         field: "remove",
         headerName: "Remover",
         flex: 1,
-        renderCell: () => (
-            <IconButton variant="contained" color="primary" size="small">
+        renderCell: (params) => (
+            <IconButton
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={() => handleRemove(page, params.data.id)}
+            >
                 <DeleteIcon />
             </IconButton>
         ),
@@ -66,6 +81,7 @@ const Table = (props) => {
                 width: "100%",
                 marginTop: "1vh",
                 display: "flex",
+                height: "400px",
             }}
         >
             <DataGrid

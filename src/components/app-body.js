@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 // Local
-import { pages } from "./lib";
 import {
     funcionario,
     aviao,
@@ -11,72 +9,92 @@ import {
     tripulacao,
     viagem,
 } from "./lib";
+import { pages } from "./lib";
 // Material
 import Paper from "@material-ui/core/Paper";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
-
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Form from "./form";
 import Table from "./table";
 
+const fields = {
+    funcionario,
+    aviao,
+    passageiro,
+    localizacao,
+    passagem,
+    tripulacao,
+    viagem,
+    home: [],
+};
+
 const AppBody = (props) => {
     const { currentPage } = props;
+    let campos = fields[currentPage];
+
+    const emptyForm = {};
+    for (const campo of campos) {
+        emptyForm[`${campo.prop}`] = "";
+    }
+    console.log("ep");
+    console.log(emptyForm);
     const [open, setOpen] = useState(false);
+    const [editionFormFields, setEditionFormFields] = useState(emptyForm);
+    console.log(editionFormFields);
+    const [auxUpdateTable, setAuxUpdateTable] = useState(0);
+
+    const handleEditClick = (formData) => {
+        setEditionFormFields(formData);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setEditionFormFields(emptyForm);
+        setAuxUpdateTable(Math.random());
+    };
 
     return (
         <Paper elevation={10}>
-            <Typography gutterBottom variant="h4">
+            <Typography variant="h4" style={{ padding: "20px 0" }}>
                 {currentPage.charAt(0).toUpperCase() + currentPage.slice(1)}
             </Typography>
+            {currentPage !== pages.HOME ? (
+                <>
+                    <Table
+                        campos={fields[currentPage]}
+                        page={currentPage}
+                        auxUpdateTable={auxUpdateTable}
+                        handleEditClick={handleEditClick}
+                    />
 
-            {/* Depends On Page */}
-            {currentPage === pages.HOME && (
-                <Typography>Seja bem vindo</Typography>
+                    <IconButton
+                        onClick={() => setOpen(true)}
+                        aria-label={`add new ${currentPage}`}
+                    >
+                        <AddCircleIcon style={{ marginRight: "10px" }} />
+                        Adicionar novo {currentPage}
+                    </IconButton>
+                </>
+            ) : (
+                <Typography variant="h5" style={{ padding: "20px 0" }}>
+                    Bem vindo!
+                </Typography>
             )}
-
-            {currentPage === pages.FUNCIONARIO && (
-                <Table campos={funcionario} page={currentPage} />
-            )}
-
-            {currentPage === pages.AVIAO && (
-                <Table campos={aviao} page={currentPage} />
-            )}
-
-            {currentPage === pages.PASSAGEIRO && (
-                <Table campos={passageiro} page={currentPage} />
-            )}
-
-            {currentPage === pages.VIAGEM && (
-                <Table campos={viagem} page={currentPage} />
-            )}
-
-            {currentPage === pages.LOCALIZACAO && (
-                <Table campos={localizacao} page={currentPage} />
-            )}
-
-            {currentPage === pages.PASSAGEM && (
-                <Table campos={passagem} page={currentPage} />
-            )}
-
-            {currentPage === pages.TRIPULACAO && (
-                <Table campos={tripulacao} page={currentPage} />
-            )}
-            {/* Depends On Page */}
-
-            <button type="button" onClick={() => setOpen(true)}>
-                Adicionar um {currentPage}
-            </button>
 
             <Modal
                 open={open}
-                onClose={() => setOpen(false)}
+                onClose={() => handleClose()}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
             >
                 <Form
-                    title={currentPage}
-                    campos={funcionario}
-                    isUpdate={false}
+                    page={currentPage}
+                    campos={campos}
+                    closeModal={() => handleClose()}
+                    editionFormFields={editionFormFields}
                 />
             </Modal>
         </Paper>

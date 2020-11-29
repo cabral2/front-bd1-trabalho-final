@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -8,10 +8,16 @@ import Typography from "@material-ui/core/Typography";
 import { post } from "../api";
 
 const Form = (props) => {
-    const { title, campos, isUpdate } = props;
+    const { page, campos, closeModal, editionFormFields } = props;
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const [formState, setFormState] = useState(editionFormFields);
+
+    const buildPost = () => {
+        let formResult = {};
+        for (const campo of campos) {
+            formResult[`${campo.prop}`] = formState[`${campo.prop}`];
+        }
+        post(page, formResult).then(() => closeModal());
     };
 
     return (
@@ -29,7 +35,7 @@ const Form = (props) => {
             spacing={1}
         >
             <Typography gutterBottom variant="h4">
-                Adicionar um {title}
+                Adicionar um {page}
             </Typography>
             {campos.map((item) => (
                 <Grid
@@ -41,26 +47,25 @@ const Form = (props) => {
                     xs={12}
                 >
                     <TextField
+                        disabled={!formState && item.prop === "cpf"}
                         fullWidth
                         size="small"
                         placeholder={item.name}
                         variant="outlined"
-                        onChange={() => {}}
+                        onChange={(event) =>
+                            setFormState((prevState) => ({
+                                ...prevState,
+                                [item.prop]: event.target.value,
+                            }))
+                        }
+                        value={formState[item.prop]}
                     />
                 </Grid>
             ))}
 
             <Grid item xs={12}>
                 <Button
-                    onClick={() =>
-                        post("funcionario", {
-                            cpf: "04400455335",
-                            nome: "Lucca Miranda",
-                            cargo: "piloto",
-                            dataContratacao: "06/03/1999",
-                            hrVoo: 3000,
-                        })
-                    }
+                    onClick={() => buildPost()}
                     variant="contained"
                     color="primary"
                 >
