@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-import { post } from "../api";
+import { post, update } from "../api";
 
 const Form = (props) => {
     const { page, campos, closeModal, editionFormFields } = props;
@@ -17,7 +17,13 @@ const Form = (props) => {
         for (const campo of campos) {
             formResult[`${campo.prop}`] = formState[`${campo.prop}`];
         }
-        post(page, formResult).then(() => closeModal());
+        editionFormFields
+            ? post(page, formResult)
+                  .then(() => closeModal())
+                  .catch((err) => console.log(err))
+            : update(page, formResult)
+                  .then(() => closeModal())
+                  .catch((err) => console.log(err));
     };
 
     return (
@@ -35,7 +41,7 @@ const Form = (props) => {
             spacing={1}
         >
             <Typography gutterBottom variant="h4">
-                Adicionar um {page}
+                Adicionar {page}
             </Typography>
             {campos.map((item) => (
                 <Grid

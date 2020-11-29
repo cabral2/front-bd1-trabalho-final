@@ -27,4 +27,13 @@ const remove = async (table, id) => {
     return axios.delete(url);
 };
 
-export { get, post, remove };
+const update = async (table, id, formData) => {
+    let url = `http://${ipdoiury}:150/TrabBD/api/${table}/update?id=${id}`;
+
+    if (table === pages.PASSAGEIRO || table === pages.FUNCIONARIO)
+        url = `http://${ipdoiury}:150/TrabBD/api/${table}/update?cpf=${id}`;
+
+    return axios.put(url, formData);
+};
+
+export { get, post, remove, update };

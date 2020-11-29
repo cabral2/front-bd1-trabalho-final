@@ -9,8 +9,9 @@ import { pages } from "./lib";
 const Table = (props) => {
     const { page, campos, auxUpdateTable, handleEditClick } = props;
     const [tableData, setTableData] = useState([]);
+    const [refetch, setRefetch] = useState(false);
 
-    const sendGet = () => {
+    useEffect(() => {
         setTableData([]);
         get(page).then((data) => {
             if (data && isArray(data)) {
@@ -23,14 +24,11 @@ const Table = (props) => {
                 setTableData(parsedData);
             }
         });
-    };
-
-    useEffect(() => {
-        sendGet();
-    }, [campos, auxUpdateTable, page]);
+        setRefetch(false);
+    }, [campos, auxUpdateTable, page, refetch]);
 
     const handleRemove = function (page, id) {
-        remove(page, id).then(() => sendGet());
+        remove(page, id).then(() => setRefetch(true));
     };
 
     const columns = campos

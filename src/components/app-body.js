@@ -38,11 +38,8 @@ const AppBody = (props) => {
     for (const campo of campos) {
         emptyForm[`${campo.prop}`] = "";
     }
-    console.log("ep");
-    console.log(emptyForm);
     const [open, setOpen] = useState(false);
     const [editionFormFields, setEditionFormFields] = useState(emptyForm);
-    console.log(editionFormFields);
     const [auxUpdateTable, setAuxUpdateTable] = useState(0);
 
     const handleEditClick = (formData) => {
@@ -75,7 +72,7 @@ const AppBody = (props) => {
                         aria-label={`add new ${currentPage}`}
                     >
                         <AddCircleIcon style={{ marginRight: "10px" }} />
-                        Adicionar novo {currentPage}
+                        Adicionar {currentPage}
                     </IconButton>
                 </>
             ) : (
@@ -94,7 +91,7 @@ const AppBody = (props) => {
                     page={currentPage}
                     campos={campos}
                     closeModal={() => handleClose()}
-                    editionFormFields={editionFormFields}
+                    editionFormFields={editionFormFields || null}
                 />
             </Modal>
         </Paper>
