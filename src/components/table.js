@@ -7,7 +7,7 @@ import { get, remove } from "../api";
 import { pages } from "./lib";
 
 const Table = (props) => {
-    const { page, campos, auxUpdateTable, handleEditClick } = props;
+    const { page, campos, auxUpdateTable, handleEdit } = props;
     const [tableData, setTableData] = useState([]);
     const [refetch, setRefetch] = useState(false);
 
@@ -18,6 +18,10 @@ const Table = (props) => {
                 const parsedData = data.map((x) => {
                     if (page === pages.FUNCIONARIO || page === pages.PASSAGEIRO)
                         return { ...x, id: x.cpf };
+
+                    if (page === pages.PASSAGEM) {
+                        return { ...x, id: `${x.passageiroCPF}/${x.viagemId}` };
+                    }
 
                     return { ...x };
                 });
@@ -50,7 +54,7 @@ const Table = (props) => {
                 variant="contained"
                 color="primary"
                 size="small"
-                onClick={() => handleEditClick(params.data)}
+                onClick={() => handleEdit(params.data)}
             >
                 <EditIcon />
             </IconButton>

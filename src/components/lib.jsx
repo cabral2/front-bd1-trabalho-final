@@ -18,6 +18,7 @@ export const funcionario = [
 ];
 
 export const aviao = [
+    { name: "ID", prop: "id" },
     { name: "Modelo", prop: "modelo" },
     { name: "Data de Fabricação", prop: "dataFabricacao" },
     { name: "Data Última Manutenção", prop: "dataUltimaManutencao" },
@@ -38,26 +39,27 @@ export const localizacao = [
 ];
 
 export const passagem = [
-    { name: "CPF do passageiro", prop: "passageiroCpf" },
+    { name: "CPF do passageiro", prop: "passageiroCPF" },
     { name: "ID da Viagem", prop: "viagemId" },
     { name: "Poltrona", prop: "poltrona" },
 ];
 
 export const tripulacao = [
     { name: "ID", prop: "id" },
-    { name: "CPF Piloto", prop: "pilotoCpf" },
-    { name: "CPF Copiloto", prop: "copilotoCpf" },
-    { name: "CPF Comissario1", prop: "comissario1Cpf" },
-    { name: "CPF Comissario2", prop: "comissario2Cpf" },
+    { name: "CPF Piloto", prop: "pilotoCPF" },
+    { name: "CPF Copiloto", prop: "copilotoCPF" },
+    { name: "CPF Comissario1", prop: "comissario1CPF" },
+    { name: "CPF Comissario2", prop: "comissario2CPF" },
 ];
 
 export const viagem = [
     { name: "ID", prop: "id" },
-    { name: "Número de Passagens", prop: "numeropassagens" },
+    { name: "Número de Passagens", prop: "numeroPassagens" },
     { name: "Preço", prop: "preco" },
-    { name: "Data", prop: "data " },
-    { name: "ID da Origem", prop: "origemid" },
-    { name: "ID da Destino", prop: "destinoid" },
-    { name: "ID da Tripulação", prop: "tripulacaoid" },
-    { name: "ID do Avião", prop: "aviaoid" },
+    { name: "Data", prop: "data" },
+    { name: "Horas de Voo", prop: "hrVoo" },
+    { name: "ID da Origem", prop: "origemId" },
+    { name: "ID da Destino", prop: "destinoId" },
+    { name: "ID da Tripulação", prop: "tripulacaoId" },
+    { name: "ID do Avião", prop: "aviaoId" },
 ];

@@ -42,7 +42,7 @@ const AppBody = (props) => {
     const [editionFormFields, setEditionFormFields] = useState(emptyForm);
     const [auxUpdateTable, setAuxUpdateTable] = useState(0);
 
-    const handleEditClick = (formData) => {
+    const handleEdit = (formData) => {
         setEditionFormFields(formData);
         setOpen(true);
     };
@@ -64,7 +64,7 @@ const AppBody = (props) => {
                         campos={fields[currentPage]}
                         page={currentPage}
                         auxUpdateTable={auxUpdateTable}
-                        handleEditClick={handleEditClick}
+                        handleEdit={handleEdit}
                     />
 
                     <IconButton
@@ -76,9 +76,12 @@ const AppBody = (props) => {
                     </IconButton>
                 </>
             ) : (
-                <Typography variant="h5" style={{ padding: "20px 0" }}>
-                    Bem vindo!
-                </Typography>
+                <img
+                    alt="peixe"
+                    height="100%"
+                    width="100%"
+                    src="https://cdn.dribbble.com/users/3451272/screenshots/7114465/media/9d8d4b08b3bfc07d7729abd12032373f.jpg"
+                />
             )}
 
             <Modal
@@ -91,7 +94,7 @@ const AppBody = (props) => {
                     page={currentPage}
                     campos={campos}
                     closeModal={() => handleClose()}
-                    editionFormFields={editionFormFields || null}
+                    editionFormFields={editionFormFields}
                 />
             </Modal>
         </Paper>

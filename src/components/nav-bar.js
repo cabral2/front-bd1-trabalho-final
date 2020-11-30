@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
     buttonText: {
         color: "#c4c4c4",
     },
+    bg: {
+        backgroundColor: "#000",
+    },
 }));
 
 const NavBar = (props) => {
@@ -26,7 +29,7 @@ const NavBar = (props) => {
     const { changePage, pages } = props;
 
     return (
-        <AppBar position="static">
+        <AppBar className={styles.bg} position="static">
             <Toolbar>
                 <Typography
                     className={styles.text}

@@ -14,7 +14,6 @@ const post = async (table, formData) => {
     for (const [key, value] of Object.entries(formData)) {
         url = url.concat(`&${key}=${value}`);
     }
-
     return axios.post(url);
 };
 
@@ -24,14 +23,28 @@ const remove = async (table, id) => {
     if (table === pages.PASSAGEIRO || table === pages.FUNCIONARIO)
         url = `http://${ipdoiury}:150/TrabBD/api/${table}/delete?cpf=${id}`;
 
+    if (table === pages.PASSAGEM)
+        url = `http://${ipdoiury}:150/TrabBD/api/${table}/delete?passageiroCPF=${
+            id.split("/")[0]
+        }&viagemId=${id.split("/")[1]}`;
+
     return axios.delete(url);
 };
 
 const update = async (table, id, formData) => {
-    let url = `http://${ipdoiury}:150/TrabBD/api/${table}/update?id=${id}`;
+    let url = `http://${ipdoiury}:150/TrabBD/api/${table}/update?`;
 
     if (table === pages.PASSAGEIRO || table === pages.FUNCIONARIO)
         url = `http://${ipdoiury}:150/TrabBD/api/${table}/update?cpf=${id}`;
+
+    if (table === pages.PASSAGEM)
+        url = `http://${ipdoiury}:150/TrabBD/api/${table}/update?passageiroCPF=${
+            id.split("/")[0]
+        }&viagemId=${id.split("/")[1]}`;
+
+    for (const [key, value] of Object.entries(formData)) {
+        url = url.concat(`&${key}=${value}`);
+    }
 
     return axios.put(url, formData);
 };

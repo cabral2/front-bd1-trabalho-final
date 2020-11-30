@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import { pages } from "./lib";
 import { post, update } from "../api";
 
 const Form = (props) => {
@@ -13,15 +14,26 @@ const Form = (props) => {
     const [formState, setFormState] = useState(editionFormFields);
 
     const buildPost = () => {
+        const isUpdate =
+            Object.entries(editionFormFields).length !== 0 &&
+            Object.entries(editionFormFields)[0][1] !== "";
         let formResult = {};
         for (const campo of campos) {
-            formResult[`${campo.prop}`] = formState[`${campo.prop}`];
+            formResult[campo.prop] = formState[campo.prop];
         }
-        editionFormFields
-            ? post(page, formResult)
+        let id = "";
+
+        if (page === pages.FUNCIONARIO || page === pages.PASSAGEIRO)
+            id = formResult["cpf"];
+
+        if (page === pages.PASSAGEM)
+            id = `${formResult["passageiroCPF"]}/${formResult["viagemId"]}`;
+
+        isUpdate
+            ? update(page, id, formResult)
                   .then(() => closeModal())
                   .catch((err) => console.log(err))
-            : update(page, formResult)
+            : post(page, formResult)
                   .then(() => closeModal())
                   .catch((err) => console.log(err));
     };
