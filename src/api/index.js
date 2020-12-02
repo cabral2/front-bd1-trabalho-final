@@ -1,7 +1,7 @@
 import axios from "axios";
 import { pages } from "../components/lib";
 
-const ipdoiury = "179.179.222.111";
+const ipdoiury = "179.178.166.7";
 
 const get = async (table) =>
     axios.get(`http://${ipdoiury}:150/TrabBD/api/${table}`).then((res) => {
