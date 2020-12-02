@@ -1,12 +1,16 @@
 import axios from "axios";
-import { pages } from "../components/lib";
+import { pages, isAnalysis } from "../components/lib";
 
 const ipdoiury = "179.178.166.7";
 
-const get = async (table) =>
-    axios.get(`http://${ipdoiury}:150/TrabBD/api/${table}`).then((res) => {
-        return res ? res.data : null;
-    });
+const get = async (table) => {
+    const analysis = isAnalysis(table) ? "analise/" : "";
+    return axios
+        .get(`http://${ipdoiury}:150/TrabBD/api/${analysis}${table}`)
+        .then((res) => {
+            return res ? res.data : null;
+        });
+};
 
 const post = async (table, formData) => {
     let url = `http://${ipdoiury}:150/TrabBD/api/${table}/insert?`;

@@ -7,6 +7,11 @@ export const pages = {
     LOCALIZACAO: "localizacao",
     PASSAGEM: "passagem",
     TRIPULACAO: "tripulacao",
+    LISTA_PASSAGEIROS: "listaPassageiros",
+    FUNCIONARIO_TRIPULACAO: "funcionarioTripulacao",
+    QUANT_VIAGEM: "quantViagem",
+    MULT_VIAGEM: "multViagem",
+    IDADE_PASSAGEIROS: "idadePassageiros",
 };
 
 export const funcionario = [
@@ -63,3 +68,47 @@ export const viagem = [
     { name: "ID da Tripulação", prop: "tripulacaoId" },
     { name: "ID do Avião", prop: "aviaoId" },
 ];
+
+export const listaPassageiros = [
+    { name: "CPF", prop: "cpf" },
+    { name: "Nome", prop: "nome" },
+    { name: "Poltrona", prop: "poltrona" },
+    { name: "Origem", prop: "origem" },
+    { name: "Destino", prop: "destino" },
+    { name: "Tempo de viagem", prop: "tempoViagem" },
+];
+
+export const funcionarioTripulacao = [
+    { name: "CPF", prop: "cpf" },
+    { name: "Nome", prop: "nome" },
+    { name: "Cargo", prop: "cargo" },
+    { name: "Horas de Voo", prop: "hrVoo" },
+    { name: "ID da Tripulação", prop: "idTripulacao" },
+];
+export const quantViagem = [
+    { name: "CPF", prop: "cpf" },
+    { name: "Nome", prop: "nome" },
+    { name: "Destino", prop: "destino" },
+    { name: "Numero de viagens", prop: "quant" },
+];
+
+export const multViagem = [
+    { name: "CPF", prop: "cpf" },
+    { name: "Nome", prop: "nome" },
+    { name: "Destino", prop: "destino" },
+    { name: "Numero de viagens", prop: "quant" },
+];
+
+export const idadePassageiros = [
+    { name: "CPF", prop: "cpf" },
+    { name: "Nome", prop: "nome" },
+    { name: "Destino", prop: "destino" },
+    { name: "Numero de viagens", prop: "quant" },
+    { name: "Idade", prop: "idade" },
+];
+export const isAnalysis = (page) =>
+    page === pages.LISTA_PASSAGEIROS ||
+    page === pages.FUNCIONARIO_TRIPULACAO ||
+    page === pages.QUANT_VIAGEM ||
+    page === pages.MULT_VIAGEM ||
+    page === pages.IDADE_PASSAGEIROS;
