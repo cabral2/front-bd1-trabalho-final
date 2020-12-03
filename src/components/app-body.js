@@ -93,13 +93,15 @@ const AppBody = (props) => {
                         handleEdit={handleEdit}
                     />
 
-                    <IconButton
-                        onClick={() => setOpen(true)}
-                        aria-label={`add new ${currentPage}`}
-                    >
-                        <AddCircleIcon style={{ marginRight: "10px" }} />
-                        Adicionar {currentPage}
-                    </IconButton>
+                    {!analysis && (
+                        <IconButton
+                            onClick={() => setOpen(true)}
+                            aria-label={`add new ${currentPage}`}
+                        >
+                            <AddCircleIcon style={{ marginRight: "10px" }} />
+                            Adicionar {currentPage}
+                        </IconButton>
+                    )}
                 </>
             ) : (
                 <img
